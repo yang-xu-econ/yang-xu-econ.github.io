@@ -1,0 +1,106 @@
+---
+layout: archive
+title: "Research"
+permalink: /research/
+author_profile: true
+redirect_from:
+  - /publications/
+---
+
+{% include base_path %}
+
+<style>
+  .page__title { display: none; }
+  .research-section {
+    margin: 2em 0 1em 0;
+    padding-bottom: 0.3em;
+    border-bottom: 1px solid #e0e3e5;
+    font-size: 1.2em;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    color: #2f3538;
+  }
+  .research-section:first-of-type { margin-top: 0.2em; }
+  .research-list { list-style: none; padding-left: 0; margin: 0; }
+  .research-item { margin-bottom: 1.8em; }
+  .research-title { font-size: 1.02em; font-weight: 600; line-height: 1.35; color: #2f3538; }
+  .research-title a { text-decoration: none; }
+  .research-title a:hover { text-decoration: underline; }
+  .research-meta { margin: 0.3em 0 0 0; font-size: 0.93em; color: #494e52; }
+  .research-status { margin: 0.25em 0 0 0; font-size: 0.93em; color: #494e52; }
+  .research-links { margin-top: 0.55em; }
+  .research-toggle {
+    display: inline-block;
+    font-size: 0.72em;
+    font-weight: 600;
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+    color: #6f777d !important;
+    text-decoration: none !important;
+    border-bottom: 1px solid transparent;
+    padding-bottom: 1px;
+    cursor: pointer;
+    transition: color 0.15s, border-color 0.15s;
+  }
+  .research-toggle:hover { color: #2f3538 !important; border-bottom-color: #2f3538; }
+  .research-toggle .chevron {
+    display: inline-block;
+    margin-left: 0.35em;
+    font-size: 0.85em;
+    transition: transform 0.2s;
+  }
+  .research-toggle.is-open .chevron { transform: rotate(180deg); }
+  .research-abstract {
+    display: none;
+    margin: 0.8em 0 0 0;
+    padding: 0.1em 0 0.1em 0.9em;
+    border-left: 2px solid #d5d9dc;
+    font-size: 0.9em;
+    line-height: 1.6;
+    color: #494e52;
+    text-align: justify;
+  }
+  .research-abstract.is-open { display: block; }
+  .research-abstract p:last-child { margin-bottom: 0; }
+</style>
+
+{% assign sections = "jmp|Job Market Paper,manuscripts|Working Papers" | split: "," %}
+
+{% for section in sections %}
+  {% assign parts = section | split: "|" %}
+  {% assign key = parts[0] %}
+  {% assign label = parts[1] %}
+  {% assign shown = false %}
+  {% for post in site.publications reversed %}
+    {% if post.category != key %}{% continue %}{% endif %}
+    {% unless shown %}
+      <h2 class="research-section">{{ label }}</h2>
+      <ul class="research-list">
+      {% assign shown = true %}
+    {% endunless %}
+    {% assign abs_id = post.permalink | slugify | prepend: "abs-" %}
+    <li class="research-item">
+      <div class="research-title">
+        {% if post.paperurl and post.paperurl != "" %}<a href="{{ post.paperurl }}">{{ post.title }}</a>{% else %}{{ post.title }}{% endif %}
+      </div>
+      {% if post.coauthors and post.coauthors != "" %}<div class="research-meta">with {{ post.coauthors }}</div>{% endif %}
+      {% if post.venue and post.venue != "" %}<div class="research-status">{{ post.venue }}</div>{% endif %}
+      <div class="research-links">
+        <a href="#" class="research-toggle" aria-expanded="false" aria-controls="{{ abs_id }}" onclick="toggleAbstract(event, this, '{{ abs_id }}')">Abstract<span class="chevron">&#9662;</span></a>
+      </div>
+      <div id="{{ abs_id }}" class="research-abstract">{{ post.content }}</div>
+    </li>
+  {% endfor %}
+  {% if shown %}</ul>{% endif %}
+{% endfor %}
+
+<script>
+  function toggleAbstract(event, link, id) {
+    event.preventDefault();
+    var el = document.getElementById(id);
+    if (!el) { return; }
+    var open = el.classList.toggle('is-open');
+    link.classList.toggle('is-open', open);
+    link.setAttribute('aria-expanded', open ? 'true' : 'false');
+  }
+</script>

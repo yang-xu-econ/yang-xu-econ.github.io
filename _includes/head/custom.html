@@ -19,4 +19,19 @@
 <link rel="icon" href="/images/favicon.ico"/>
 <meta name="theme-color" content="var(--global-bg-color)"/>
 
+<!-- Open PDF links and external links in a new tab -->
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  document.querySelectorAll('a[href]').forEach(function (a) {
+    var href = a.getAttribute('href');
+    var isPdf = /\.pdf($|[?#])/i.test(href);
+    var isExternal = /^https?:\/\//i.test(href) && a.hostname !== window.location.hostname;
+    if (isPdf || isExternal) {
+      a.setAttribute('target', '_blank');
+      a.setAttribute('rel', 'noopener');
+    }
+  });
+});
+</script>
+
 <!-- end custom head snippets -->
