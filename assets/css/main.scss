@@ -106,3 +106,50 @@
 .sidebar .author__urls a {
   font-size: 1.05em !important;
 }
+
+/* ==========================================================================
+   Custom: no Follow button on small screens
+   The button was removed from _includes/author-profile.html. Below the
+   template's $large breakpoint the links are shown as a plain list under
+   the name instead of a dropdown panel, and the name is no longer indented
+   relative to the photo.
+   ========================================================================== */
+
+@media screen and (max-width: #{$large - 1px}) {
+  .sidebar .author__content {
+    display: block !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
+  .sidebar .author__urls-wrapper {
+    display: block !important;
+    cursor: auto !important;
+  }
+  .sidebar .author__urls {
+    display: block !important;
+    position: static !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    border: 0 !important;
+    background: transparent !important;
+    box-shadow: none !important;
+    z-index: auto !important;
+  }
+  .sidebar .author__urls:before,
+  .sidebar .author__urls:after {
+    display: none !important;
+  }
+
+  /* The navigation script adds top padding to the sidebar whenever the
+     Follow button is hidden. These two rules restore the template's own
+     padding at these widths, so phones get no extra gap above the photo. */
+  .sidebar {
+    padding-top: 0 !important;
+  }
+}
+
+@media screen and (min-width: $sidebar-screen-min-width) and (max-width: #{$large - 1px}) {
+  .sidebar {
+    padding-top: $masthead-height !important;
+  }
+}
