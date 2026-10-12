@@ -223,6 +223,11 @@ defaults:
       author_profile: true
       share: false
       comments: false
+  # Unlisted talk slides at the site root: keep out of sitemap.xml
+  - scope:
+      path: "MEG_slides.pdf"
+    values:
+      sitemap: false
 
 # Sass/SCSS
 sass:

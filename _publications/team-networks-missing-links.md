@@ -4,7 +4,7 @@ collection: publications
 category: manuscripts
 permalink: /research/team-networks-missing-links
 date: 2025-05-13
-venue: "Reject and resumbit at <em>The Econometrics Journal</em>"
+venue: "Reject and resubmit at <em>The Econometrics Journal</em>"
 paperurl: "https://arxiv.org/abs/2505.08405"
 coauthors: ""
 citation: ""

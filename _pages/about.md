@@ -61,7 +61,7 @@ redirect_from:
 </style>
 
 <div class="home-intro">
-<p>Welcome! I am a PhD candidate in Economics at the University of Oxford, expecting to complete my degree in 2027.</p>
+<p>Welcome! I am a PhD candidate in Economics at the University of Oxford.</p>
 
 <p>My main research interest is in econometrics, with a focus on networks. Network data are often incomplete, and I develop tools for partially observed networks. I also work on applied projects on international trade.</p>
 
@@ -81,10 +81,8 @@ redirect_from:
   <div class="edu-year">2016–2020</div>
 </div>
 
-<!-- CV section hidden until the PDF is ready
 <h2 class="home-section">CV</h2>
 
 <div class="home-links">
   <a href="/files/CV_Xu.pdf" class="home-toggle">Curriculum Vitae (PDF)</a>
 </div>
--->
