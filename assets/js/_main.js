@@ -9,43 +9,15 @@
 const PLOTLY_URL = "https://cdn.jsdelivr.net/npm/plotly.js@3.6.0/dist/plotly.min.js";
 const MERMAID_URL = "https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs";
 
-// Detect OS/browser preference
-const browserPref = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
-
-// Determine the computed theme, which can be "dark" or "light".
+// The site is fixed to the light theme: the OS/browser preference and any
+// previously stored visitor choice are deliberately ignored.
 function determineComputedTheme() {
-  // Determine the expected state of the theme toggle, which can be "dark", "light", or default "system"
-  let themeSetting = localStorage.getItem("theme");
-  themeSetting = (themeSetting != "dark" && themeSetting != "light" && themeSetting != "system") ? "system" : themeSetting;
-
-  // Return the setting if set, or use the browser preference
-  if (themeSetting != "system") {
-    return themeSetting;
-  }
-  return browserPref ? "dark" : "light";
+  return "light";
 }
 
-// Set the theme on page load or when explicitly called. Without an argument the
-// theme is the stored preference or, failing that, the OS/browser preference.
-function setTheme(theme) {
-  const use_theme = theme || determineComputedTheme();
-
-  if (use_theme === "dark") {
-    $("html").attr("data-theme", "dark");
-    $("#theme-icon").removeClass("fa-sun").addClass("fa-moon");
-  } else if (use_theme === "light") {
-    $("html").removeAttr("data-theme");
-    $("#theme-icon").removeClass("fa-moon").addClass("fa-sun");
-  }
-}
-
-// Toggle the theme manually
-function toggleTheme() {
-  const current_theme = $("html").attr("data-theme");
-  const new_theme = current_theme === "dark" ? "light" : "dark";
-  localStorage.setItem("theme", new_theme);
-  setTheme(new_theme);
-  redrawPlotly();
+// Apply the light theme by removing the attribute that activates the dark stylesheet.
+function setTheme() {
+  $("html").removeAttr("data-theme");
 }
 
 // Defer the loading of Mermaid to only if there is a field on the page to be rendered
@@ -68,9 +40,8 @@ if (mermaidElements.length > 0) {
    Plotly integration script so that Markdown codeblocks will be rendered
    ========================================================================== */
 
-// Read the Plotly data from the code block, hide it, and render the chart as new node. This allows for the
-// JSON data to be retrieve when the theme is switched. The listener should only be added if the data is
-// actually present on the page.
+// Read the Plotly data from the code block, hide it, and render the chart as new node. The listener
+// should only be added if the data is actually present on the page.
 //
 // NOTE that plotlyDarkLayout and plotlyLightLayout will be exposed in the minimized file
 let plotlyElements = document.querySelectorAll("pre>code.language-plotly");
@@ -113,25 +84,6 @@ if (plotlyElements.length > 0) {
   });
 }
 
-function redrawPlotly() {
-  plotlyElements.forEach(function(elem) {
-    // Parse the Plotly JSON data
-    let jsonData = JSON.parse(elem.textContent);
-
-    // Get the Plotly node
-    let chartElement = $(elem).parent().next().get(0);
-
-    // Set the theme for the plot and render it
-    const theme = (determineComputedTheme() === "dark") ? plotlyDarkLayout : plotlyLightLayout;
-    if (jsonData.layout) {
-      jsonData.layout.template = (jsonData.layout.template) ? { ...theme, ...jsonData.layout.template } : theme;
-    } else {
-      jsonData.layout = { template: theme };
-    }
-    Plotly.react(chartElement, jsonData.data, jsonData.layout);
-  });
-}
-
 /* ==========================================================================
    Actions that should occur when the page has been fully loaded
    ========================================================================== */
@@ -141,17 +93,8 @@ $(document).ready(function () {
   const scssLarge = 925;          // pixels, from /_sass/_themes.scss
   const scssMastheadHeight = 70;  // pixels, from the current theme (e.g., /_sass/theme/_default.scss)
 
-  // If the user hasn't chosen a theme, follow the OS preference
+  // Always use the light theme
   setTheme();
-  window.matchMedia('(prefers-color-scheme: dark)')
-        .addEventListener("change", (e) => {
-          if (!localStorage.getItem("theme")) {
-            setTheme(e.matches ? "dark" : "light");
-          }
-        });
-
-  // Enable the theme toggle
-  $('#theme-toggle').on('click', toggleTheme);
 
   // Enable the sticky footer
   var bumpIt = function () {
