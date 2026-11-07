@@ -225,7 +225,7 @@ defaults:
       comments: false
   # Unlisted talk slides at the site root: keep out of sitemap.xml
   - scope:
-      path: "MEG_slides.pdf"
+      path: "JMP_slides_Xu.pdf"
     values:
       sitemap: false
 
