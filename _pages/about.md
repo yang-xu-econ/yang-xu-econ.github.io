@@ -49,7 +49,9 @@ redirect_from:
 <div class="home-intro">
 <p>Welcome! I am a PhD candidate in Economics at the University of Oxford.</p>
 
-<p>My main research interest is in econometrics, with a focus on networks. Network data are often incomplete, and I develop tools for partially observed networks. I also work on applied projects on international trade.</p>
+<p>My main research interest is in econometrics, with a focus on networks. Network data are often incomplete, and I develop methods for partially observed networks.</p>
+
+<p>In particular, I design econometric tools for research in development economics. I also work on applied projects in international trade.</p>
 
 <p>I am on the 2026–27 academic job market.</p>
 </div>
