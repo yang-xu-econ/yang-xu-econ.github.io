@@ -47,7 +47,7 @@ redirect_from:
 </style>
 
 <div class="home-intro">
-<p>Welcome! I am a PhD candidate in Economics at the University of Oxford.</p>
+<p>Welcome! I am a PhD candidate in Economics at the University of Oxford, supervised by <a href="https://www.homepages.ucl.ac.uk/~uctpmw0/">Martin Weidner</a> and <a href="https://sites.google.com/site/banudemirpakel/">Banu Demir</a>.</p>
 
 <p>My main research interest is in econometrics, with a focus on networks. Network data are often incomplete, and I develop methods for partially observed networks.</p>
 
